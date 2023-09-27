@@ -10,7 +10,6 @@ import Foundation
 // every every category will be having articles
 
 struct Category {
-    
     let title: String
     let articles: [Article]
     

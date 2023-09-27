@@ -23,7 +23,6 @@ class NewsDetailsViewController: UIViewController {
     }
     
     private func setupUI() {
-        
         self.newsDetailsVM = NewsDetailsViewModel(article)
         self.navigationItem.largeTitleDisplayMode = .never
         self.title = self.newsDetailsVM.sourceName
@@ -32,7 +31,9 @@ class NewsDetailsViewController: UIViewController {
             let newsDetailURL = URL(string: url) else {
                 return
         }
-        let request = URLRequest(url: newsDetailURL)
-        self.webview.load(request)
+        DispatchQueue.main.async {
+            let request = URLRequest(url: newsDetailURL)
+            self.webview.load(request)
+        }
     }
 }

@@ -17,7 +17,6 @@ extension UIImage {
     
     // function used to download the image from the url
     static func imageForHeadline(url: String, completion: @escaping (UIImage) -> ()) {
-        
         guard let imageURL = URL(string: url) else {
             completion(UIImage.imageForPlaceHolder())
             return
@@ -30,7 +29,6 @@ extension UIImage {
                 }
             }
         }
-        
     }
     
 }

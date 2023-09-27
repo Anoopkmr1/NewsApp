@@ -35,8 +35,8 @@ struct Article: Decodable {
         case name
     }
     
+    // selft json parsing
     init(from decoder: Decoder) throws {
-        
         let container = try decoder.container(keyedBy: ArticleKeys.self)
         self.title = try container.decode(String.self, forKey: .title)
         self.description = try? container.decode(String.self, forKey: .description)
@@ -50,14 +50,11 @@ struct Article: Decodable {
 }
 
 extension Article {
-    
     // this function is used for mapping the data to the model from the provided url
     static func by(_ category: String) -> Resource<[Article]> {
-        
         return Resource<[Article]>(url: URL.urlForTopHeadlines(for: category)) { data in
+            print("\(data)")
             return try! JSONDecoder().decode(NewsSourcesResponse.self, from: data).articles
         }
-        
     }
-    
 }

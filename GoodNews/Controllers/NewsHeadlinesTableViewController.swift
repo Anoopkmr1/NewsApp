@@ -8,12 +8,10 @@ import Foundation
 import UIKit
 
 class NewsHeadlinesTableViewController: UITableViewController {
-    
     private var categoryListVM: CategoryListViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
         populateHeadlinesAndArticles()
     }
@@ -22,15 +20,14 @@ class NewsHeadlinesTableViewController: UITableViewController {
         // setting up the header of the table view
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.tableView.tableHeaderView = UIView.viewForTableViewHeader(subtitle: Date.dateAsStringForTableViewHeader())
-        
     }
+    
     // funciton used for calling the category serivces
     private func populateHeadlinesAndArticles() {
             CategoryService().getAllHeadlinesForAllCategories { [weak self] categories in
             self?.categoryListVM = CategoryListViewModel(categories: categories)
             self?.tableView.reloadData()
         }
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -41,16 +38,17 @@ class NewsHeadlinesTableViewController: UITableViewController {
     
     private func prepareSegueForNewsDetails(_ segue: UIStoryboardSegue) {
         guard let newsDetailsVC = segue.destination as? NewsDetailsViewController else {
-            fatalError("NewsDetailsViewController is not defined")
+           print("Failed to segue")
+            return
         }
         
         guard let indexPath = tableView.indexPathForSelectedRow else {
-            fatalError("Unable to get the selected row")
+            print("Unable to get the selected row")
+            return
         }
         
         let articleVM = self.categoryListVM.categoryAtIndex(index: indexPath.section).articleAtIndex(indexPath.row)
         newsDetailsVC.article = articleVM.article
-        
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -59,10 +57,8 @@ class NewsHeadlinesTableViewController: UITableViewController {
     
     // this delegate used to show the view in every section
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
         let name = self.categoryListVM.categoryAtIndex(index: section).name // getting the category name
         return UIView.viewForSectionHeader(title: name)
-
     }
     
     
@@ -79,10 +75,8 @@ class NewsHeadlinesTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewsHeadlineTableViewCell", for: indexPath) as? NewsHeadlineTableViewCell else {
             fatalError("NewsHeadlineTableViewCell not found")
         }
-        
         let articleVM = self.categoryListVM.categoryAtIndex(index: indexPath.section).articleAtIndex(indexPath.row)
         cell.configure(vm: articleVM)
-        
         return cell
     }
     

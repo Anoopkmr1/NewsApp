@@ -7,17 +7,12 @@
 import Foundation
 import UIKit
 
-struct ArticleViewModel {
-    private(set) var article: Article
-}
-
-extension ArticleViewModel {
+class ArticleViewModel {
+     var article: Article
+    
     init(_ article: Article) {
         self.article = article
     }
-}
-
-extension ArticleViewModel {
     
     var title: String {
         return self.article.title
@@ -40,8 +35,6 @@ extension ArticleViewModel {
                 completion(image)
             }
         }
-        
-        
     }
     
 }
