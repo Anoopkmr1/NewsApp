@@ -35,7 +35,7 @@ struct Article: Decodable {
         case name
     }
     
-    // selft json parsing
+    // self json parsing
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: ArticleKeys.self)
         self.title = try container.decode(String.self, forKey: .title)

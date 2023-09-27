@@ -19,8 +19,7 @@ class Webservice {
                     completion(resource.parse(data))
             } else {
                 completion(nil)
-            }
-            
+            } 
         }.resume()
     }
 

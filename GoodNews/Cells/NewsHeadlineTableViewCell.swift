@@ -17,6 +17,8 @@ class NewsHeadlineTableViewCell: UITableViewCell {
     func configure(vm: ArticleViewModel) {
         self.titleLabel.text = vm.title
         self.descriptionLabel.text = vm.description
-        vm.image { self.headlineImageView.image = $0 }
+        vm.image { image in
+            self.headlineImageView.image = image
+        }
     }
 }

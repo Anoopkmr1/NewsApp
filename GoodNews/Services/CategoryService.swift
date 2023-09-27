@@ -21,12 +21,10 @@ class CategoryService {
                 guard let articles = articles else {
                     return
                 }
-                print("Anoop1:\(articles)")
                 // returing an category structure and storing them into the category variable
                 // further appending to the local array of type Categroy
                 let category = Category(title: category, articles: articles)
                 categories.append(category)
-                print("Anoop_response:\(categories)")
                 if requestCount == categoriesCount { // when the count is equall to the categroy count
                     // we'll return the completion
                     DispatchQueue.main.async {
